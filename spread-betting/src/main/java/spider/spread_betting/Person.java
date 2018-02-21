@@ -1,7 +1,9 @@
 package spider.spread_betting;
 
-public class Person {
+import org.springframework.data.annotation.Id;
 
+public class Person {
+	  @Id
 	  private String id;
 	  private String name;
 	  private int age;

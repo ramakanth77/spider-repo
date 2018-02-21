@@ -10,9 +10,23 @@
   <name>spread-betting</name>
   <url>http://maven.apache.org</url>
 
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.10.RELEASE</version>
+  </parent>
 
   <repositories>
   <repository>
@@ -36,18 +50,34 @@
     <artifactId>log4j</artifactId>
     <version>1.2.17</version>
 </dependency>
-<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 <dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-web</artifactId>
-    <version>3.0.2.RELEASE</version>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
-
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter</artifactId>
+ </dependency>
+ <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+<dependency>
+    <groupId>org.assertj</groupId>
+    <artifactId>assertj-core</artifactId>
+    <version>3.8.0</version>
+    <scope>test</scope>
+</dependency>
+ 
   <!-- https://mvnrepository.com/artifact/org.springframework/spring-expression -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-expression</artifactId>
-    <version>5.0.3.RELEASE</version>
+    
 </dependency>
   
   <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
@@ -60,18 +90,25 @@
 <dependency>
     <groupId>org.springframework.data</groupId>
     <artifactId>spring-data-mongodb</artifactId>
-    <version>2.0.3.RELEASE</version>
+    
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    
 </dependency>
 
+	
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>5.0.3.RELEASE</version>
+        
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      
       <scope>test</scope>
     </dependency>
   </dependencies>
