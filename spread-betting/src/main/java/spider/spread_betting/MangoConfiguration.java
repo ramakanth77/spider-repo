@@ -25,13 +25,15 @@ import com.mongodb.MongoClientURI;
  *
  */
 @Configuration
-public class MangoClusterConfiguration extends AbstractMongoConfiguration {
+@EnableMongoRepositories
+public class MangoConfiguration extends AbstractMongoConfiguration {
 
 	MongoClientURI uri = new MongoClientURI("mongodb+srv://ramakanth77:reddy1234@spread-beatting-246kx.mongodb.net/test");
-    public MangoClusterConfiguration() {
-    	
+
+	@Bean
+	public MongoTemplate mongoTemplate() throws Exception {
+		return new MongoTemplate(mongo(), "test");
 	}
-	
 	@Override
 	public String getDatabaseName() {
 		return "test";
@@ -42,6 +44,6 @@ public class MangoClusterConfiguration extends AbstractMongoConfiguration {
 	public Mongo mongo() throws Exception {
 		return new MongoClient(uri);
 	}
-	
+
 
 }

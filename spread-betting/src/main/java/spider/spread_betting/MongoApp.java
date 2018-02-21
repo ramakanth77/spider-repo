@@ -23,9 +23,9 @@ public class MongoApp {
     @SuppressWarnings("deprecation")
     MongoOperations mongoOps = new MongoTemplate(mongoClient, "test");
 
-    mongoOps.insert(new Person("Joe", 34));
+    //mongoOps.insert(new Person("Joe", 34));
 
-   logger.info(mongoOps.findOne(new Query(Criteria.where("name").is("Joe")), Person.class));
+   logger.info(mongoOps.findOne(new Query(Criteria.where("name").is("Ramakanth")), Person.class));
 
     //mongoOps.dropCollection("person");
   }
