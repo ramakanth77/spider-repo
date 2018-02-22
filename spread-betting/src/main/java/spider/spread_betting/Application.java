@@ -19,7 +19,7 @@ public class Application {
 
         return args -> {
 
-            Person obj = domainRepository.findOne(34);
+            Person obj = domainRepository.findOne(50);
             System.out.println(obj);
 
             Person obj2 = domainRepository.findByName("Joe");

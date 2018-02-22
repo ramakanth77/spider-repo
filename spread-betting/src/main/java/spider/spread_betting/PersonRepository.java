@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends MongoRepository<Person, Integer>,PersonRepositoryCustom {
 
     public Person findByName(String name);
-    public List<Person> findByAge(int age);
+    public List<Person> findByAge(Integer age);
 
 }

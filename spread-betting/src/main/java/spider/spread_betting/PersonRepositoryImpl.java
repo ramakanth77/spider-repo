@@ -1,13 +1,7 @@
 package spider.spread_betting;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -22,7 +16,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
     MongoTemplate mongoTemplate;
 
     @Override
-    public int updatePerson(String name, int age) {
+    public int updatePerson(String name, Integer age) {
 
         Query query = new Query(Criteria.where("name").is(name));
         Update update = new Update();
