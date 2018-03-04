@@ -5,10 +5,13 @@ package spider.spread_betting;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,9 +42,10 @@ public class PersonController {
 	public Person getPerson(String name) {
 		return repository.findByName(name);
 	}
-	@RequestMapping("/getAll")
-	public List<Person> getAllPersons(){
-		return repository.findAll();
+	
+	@RequestMapping(value="/getAll",method=RequestMethod.GET,produces="application/json")
+	public Object[] getAllPersons(){
+		return repository.findAll().toArray();
 	}
 
 	@RequestMapping("/delete")

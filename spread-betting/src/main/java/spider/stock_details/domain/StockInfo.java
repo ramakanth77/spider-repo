@@ -23,7 +23,7 @@ import org.springframework.data.annotation.TypeAlias;
  * @author ramakanth.reddy
  *
  */
-@Document(collection = "stocks")
+@Document(collection = "stockInfoDetails")
 @TypeAlias("stock")
 public class StockInfo extends AbstractDocument implements Serializable{
 	
@@ -35,38 +35,41 @@ public class StockInfo extends AbstractDocument implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Indexed(unique = true)
-	@Field("stockSymbol")
-	private String stockSymbol;
+	@Field("stockId")
+	private Integer stockId;
 	
-	private String name;
+	
+	private String securityId;
+	
+	public String getSecurityId() {
+		return securityId;
+	}
+	public void setSecurityId(String securityId) {
+		this.securityId = securityId;
+	}
+	
+	private String companyName;
+	
+	private boolean listed;
 
 	@PersistenceConstructor
-	public StockInfo(String stockSymbol,String name) {
-		this.stockSymbol = stockSymbol;
-		this.name = name;
+	public StockInfo(Integer stockId,String companyName) {
+		this.stockId = stockId;
+		this.companyName = companyName;
 	}
-	@Override
-	public String toString() {
-		ObjectMapper mapper = new ObjectMapper();
-    	
-    	String jsonString = "";
-		try {
-			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			jsonString = mapper.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-    	return jsonString;
+	
+	public Integer getStockId() {
+		return stockId;
+	}
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+	public boolean isListed() {
+		return listed;
 	}
 
 	
-	public String getStockSymbol() {
-		return stockSymbol;
-	}
-
-	public String getName() {
-		return name;
-	}
+	
 	
 }

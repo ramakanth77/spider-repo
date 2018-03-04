@@ -12,41 +12,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import spider.stock_details.AbstractDocument;
-@Document(collection = "stockdata")
-@TypeAlias("data")
+@Document(collection = "stockdailydata")
+@TypeAlias("stockdata")
 public class StockData extends AbstractDocument{
 
-	@Indexed(name="stockIndex",unique=true)
+	@Indexed(name="stockInfo",unique=true)
 	@DBRef
-	private StockInfo stockSymbol;
+	private StockInfo stockInfo;
 	
 	private Date date;
-	private Double price;
-	private Long volume;
-	public StockInfo getStockSymbol() {
-		return stockSymbol;
+	private Double previousClose;
+	private Double open;
+	private Double high;
+	private Double low;
+	
+	public StockInfo getStockInfo() {
+		return stockInfo;
 	}
+	public Double getPreviousClose() {
+		return previousClose;
+	}
+	public Double getOpen() {
+		return open;
+	}
+	public Double getHigh() {
+		return high;
+	}
+	public Double getLow() {
+		return low;
+	}
+	private Long volume;
+	
 	public Date getDate() {
 		return date;
 	}
-	public Double getPrice() {
-		return price;
-	}
+	
 	public Long getVolume() {
 		return volume;
 	}
-	@Override
-	public String toString() {
-		ObjectMapper mapper = new ObjectMapper();
-    	
-    	String jsonString = "";
-		try {
-			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			jsonString = mapper.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-    	return jsonString;
-	}
+	
 }
