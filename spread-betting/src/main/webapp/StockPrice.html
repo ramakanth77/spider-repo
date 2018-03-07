@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="js/StockPrice.js"></script>
+    </head>
+    <body ng-app="app" ng-controller="MainController as main">
+	 <div>    	
+    	<form novalidate class="stock-form" role="form" ng-submit="saveStockData()">
+         <div ng-controller="SubController as sub">
+			<label>Select Stock Id</label>
+			 <select ng-model="selectedStockInfo" ng-options="stock.stockId as stock.companyName for stock in stockInfo track by stock.stockId">
+			 </select>
+		</div>  
+        <div>
+            <table>
+            	<tr>
+            		<td><label>Date</label></td>
+            		<td><input type="datetime" ng-model="stockDate" class="form-coltrol" id="stockDate"/></td>
+            	</tr>
+            	<tr>
+            		<td><label>Previous Close</label></td>
+            		<td><input type="text" ng-model="previousClose" class="form-coltrol" id="previousClose"/></td>
+            	</tr>
+            	<tr>
+            		<td><label>Open</label></td>
+            		<td>
+            			<input type="text" ng-model="open" class="form-coltrol" id="open"/>
+            		</td>
+            	</tr>
+            	<tr>
+            		<td>
+            			<label>High</label>
+            		</td>
+            		<td>
+            			<input type="text" ng-model="high" class="form-coltrol" id="high"/>
+            		</td>
+            	</tr>
+            	<tr>
+            		<td>
+            			<label>Low</label>
+            		</td>
+            		<td>
+            			<input type="text" ng-model="low" class="form-coltrol" id="low"/>
+            		</td>
+            	</tr>
+
+            </table>
+            <input type="button" ng-click="reset()" value="Reset" />
+    		<button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+        </div>
+    </body>
+</html>
