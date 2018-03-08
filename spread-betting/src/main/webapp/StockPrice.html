@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" >
     <head>
+    	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
         <script src="js/StockPrice.js"></script>
     </head>
@@ -9,7 +10,9 @@
     	<form novalidate class="stock-form" role="form" ng-submit="saveStockData()">
          <div ng-controller="SubController as sub">
 			<label>Select Stock Id</label>
-			 <select ng-model="selectedStockInfo" ng-options="stock.stockId as stock.companyName for stock in stockInfo track by stock.stockId">
+			 <select id="selectedStockInfo" ng-change="GetValue()" 
+			 	ng-model="selectedStockInfo" 
+			 	ng-options="stock.stockId as stock.companyName for stock in stockInfo track by stock.stockId">
 			 </select>
 		</div>  
         <div>
@@ -46,8 +49,22 @@
             	</tr>
 
             </table>
+            
             <input type="button" ng-click="reset()" value="Reset" />
     		<button type="submit" class="btn btn-primary">Submit</button>
+
+	        <table cellspacing="5px" style="border:1px solid black;">
+			  <tr >
+			        <th>Stock Id</th>
+			        <th>Date</th>
+			        <th>Previous Close</th>
+			    </tr>
+			    <tr ng-repeat="data in stockData">
+			        <td>{{data.stockId}}</td>
+			        <td>{{data.date}}</td>
+			        <td>{{data.previousClose}}</td>
+				</tr>
+			</table>	
         </div>
         </form>
         </div>

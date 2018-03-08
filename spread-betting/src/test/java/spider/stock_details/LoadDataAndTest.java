@@ -12,6 +12,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import spider.stock_details.domain.StockData;
 import spider.stock_details.domain.StockInfo;
 
 @EnableMongoRepositories
@@ -28,12 +30,15 @@ import spider.stock_details.domain.StockInfo;
 @ComponentScan
 
 public class LoadDataAndTest {
+	
+	private static final Logger logger = Logger.getLogger(LoadDataAndTest.class);
+	
 	@Autowired
 	private StockInfoRepo stockRepo;
 	
 	private static final String ENDPOINT="stocks/get";
 	
-	@Test
+	//@Test
 	public void givenRequestForStocks_whenSizeIsTwo_expectNumberOfElementsTwo() {
 	    given().params("page", "0", "size", "2").get(ENDPOINT)
 	      .then()
@@ -48,10 +53,12 @@ public class LoadDataAndTest {
 		info.forEach(s->System.out.println(s.getStockId()+s.getCompanyName()));*/
 		
 	}
+	
 	//@Test
 	public void deleteAllRecords() throws Exception {
 		stockRepo.deleteAll();
 	}
+	
 	//@Test
 	public void getFile() throws Exception {
 
@@ -65,11 +72,17 @@ public class LoadDataAndTest {
 			while (scanner.hasNextLine()) {
 				
 				String line = scanner.nextLine();
-				System.out.println(line);
-				StockInfo info = new StockInfo(Integer.parseInt(line.split(",")[0]),line.split(",")[1]);
-				System.out.println(info.getStockId()+" "+info.getCompanyName());
+				logger.info(line);
+				Integer stockId = Integer.parseInt(line.split(",")[0]);
+				String companyName = line.split(",")[1];
+				String securityId = stockId+companyName.substring(0, 2);		
+				StockInfo info = new StockInfo(stockId,companyName);
+				info.setSecurityId(securityId);
+				info.setListed(true);
+				
+				
 				stockRepo.save(info);
-				System.out.println("-------------SAVED-------------");
+				logger.info("-------------SAVED-------------");
 			}
 			scanner.close();
 			System.out.println("closed");

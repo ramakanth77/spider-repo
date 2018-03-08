@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,9 @@ import spider.stock_details.domain.StockInfo;
 public class StocksController {
 
 	public static Logger logger = Logger.getLogger(StocksController.class);
+	
+	@Autowired
+	private StockDataRepo stockDataRepo;
 	
 	@Autowired
 	private StockInfoRepo stockRepo;
@@ -56,14 +60,15 @@ public class StocksController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/stocks/newdata", method = RequestMethod.POST,consumes =  MediaType.APPLICATION_JSON_VALUE)	
-	public  @ResponseBody String saveUserRestful(@RequestBody CommandBean commandBean)   {		
-		System.out.println("---->stockId is :"+commandBean.getStockId()+" data is "+commandBean.getStockData());
-		//
-		// Code processing the input parameters
-		//	
-	 	String response = "{\"message\":\"Post With ngResource\"}" ;
-		return response;
+	@RequestMapping(value = "/stocks/newdata", method = RequestMethod.POST,
+			consumes =  MediaType.APPLICATION_JSON_VALUE)	
+	public  @ResponseBody Page<StockData> saveUserRestful(@RequestBody StockData stockData)   {	
+		StockData data =  stockDataRepo.save(stockData);
+		logger.debug("updated stock data is :"+data);
+		Pageable topTen = new PageRequest(0, 10);
+		Page<StockData> result = stockDataRepo.findAll(topTen);
+		return result;
+		
 	}
 
 }

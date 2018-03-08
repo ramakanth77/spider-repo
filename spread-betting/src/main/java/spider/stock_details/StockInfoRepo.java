@@ -19,9 +19,4 @@ public interface StockInfoRepo extends MongoRepository<StockInfo, Integer>,Stock
 	public StockInfo findByStockId(Integer stockId);
     public List<StockInfo> findByListed(Boolean isListed);
     public StockInfo findByCompanyName(String companyName);
-    
-   
-    
-  
-	
 }
